@@ -4,8 +4,6 @@
 ### Project Overview
 In this project, I set out to test whether a machine learning approach could build a safer portfolio than traditional financial theory. I compared the standard textbook method, **Mean-Variance Optimization (MVO)**, against a more advanced technique called **Hierarchical Risk Parity (HRP)**.
 
-My main goal was to solve a common problem in finance: traditional models often break down during market crashes because they rely too much on unstable correlations. To fix this, I used a clustering algorithm that groups assets based on their behavior. I validated the strategy by running a realistic "Walk-Forward" backtest using market data from 2021 to 2025.
-
 ### Key Features
 *   **Simulating the Future:** I ran a Monte Carlo simulation with 10,000 iterations to map out the "Efficient Frontier," finding the mathematical sweet spot between risk and return.
 *   **Machine Learning Clustering:** Instead of relying on simple linear correlations, I used an algorithm to group assets into a hierarchical "family tree" based on how they move together.
