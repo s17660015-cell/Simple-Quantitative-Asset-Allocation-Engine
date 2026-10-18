@@ -1,4 +1,4 @@
-"""Build a corrected technical-note draft directly from verified run outputs."""
+"""Build the technical report directly from verified run outputs."""
 
 from pathlib import Path
 import json
@@ -75,7 +75,7 @@ def main():
 
     story = [
         p("Portfolio allocation with<br/>maximum-Sharpe optimization and HRP", "title"),
-        p("Spark Hu | Original project: November 2025 | Revised draft: 7 October 2026", "subtitle"),
+        p("Spark Hu | Original project: November 2025 | Documentation revised: 18 October 2026", "subtitle"),
         p("A rolling hierarchical risk parity (HRP) portfolio and an equal-weight portfolio are evaluated on the same five assets over 2021-2024. HRP had lower volatility and drawdown; equal weighting achieved higher growth and Sharpe. A separate maximum-Sharpe fit illustrates how estimated means and covariances determine an allocation."),
         p("The maximum-Sharpe fit", "heading"),
         p(f"The first calculation uses MSFT, JPM, TLT, GLD and BTC-USD. Adjusted prices cover {mvo['price_start'][:10]} to {mvo['price_end'][:10]}, giving {m['observations']} simple-return observations. Prices are restricted to dates available for all five assets before returns are calculated. This retains the return from Friday to Monday, including Bitcoin's intervening weekend movement."),
@@ -118,14 +118,14 @@ def main():
         p("Limits and corrections", "heading"),
         p("These results come from a small selected universe over one historical period. They have not been evaluated on an untouched holdout or subjected to a statistical superiority test. The cash rate is constant, and the 252-observation annualization does not account for serial dependence."),
         p("Adjusted daily prices approximate total returns and execution values. They do not synchronize the exact timestamps of every market or fully model slippage, impact and taxes. The empirical VaR is a return quantile, not a bound on future losses. HRP's clustering also provides no explicit sector cap."),
-        p("The revision corrects mislabelled weights, return aggregation and holding-period accounting, then adds a signal delay, an equal-weight baseline and saved numerical checks. The earlier files and a detailed correction record remain in the archive. A covariance-shrinkage study is planned to separate numerical conditioning from estimation error; it is not included in these historical results."),
+        p("The revision corrects mislabelled weights, return aggregation and holding-period accounting, then adds a signal delay, an equal-weight baseline and saved numerical checks. The original files remain in the archive; CHANGES.md records the corrections. A covariance-shrinkage study is planned to separate numerical conditioning from estimation error; it is not included in these historical results."),
         p("Reproducibility and sources", "heading"),
         p(f"Prices were retrieved at {escape(provenance['retrieved_at_utc'])}. The local CSV's SHA-256 is recorded in results/data-manifest.json. The source commit is ce87a9d13131d03699dd1b0834acd945c54bbb6d. Seed {summary['random_seed']}, run settings, dependency versions and numerical results are saved in results/summary.json; notebooks contain executed outputs.", "small"),
         p('<link href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2708678" color="#005b91">López de Prado (2016), Building Diversified Portfolios that Outperform Out-of-Sample.</link><br/>'
           '<link href="https://pyportfolioopt.readthedocs.io/en/latest/_modules/pypfopt/hierarchical_portfolio.html" color="#005b91">PyPortfolioOpt: HRP implementation.</link><br/>'
           '<link href="https://docs.scipy.org/doc/scipy/reference/optimize.minimize-slsqp.html" color="#005b91">SciPy: SLSQP documentation.</link><br/>'
           '<link href="https://ranaroussi.github.io/yfinance/reference/api/yfinance.download.html" color="#005b91">yfinance: download and adjustment conventions.</link>', "small"),
-        p("Acknowledgment: The October code corrections and this draft were prepared with Codex assistance. The original project dates from November 2025. The author is reviewing the reasoning and wording before sharing the revised work.", "small"),
+        p("Acknowledgment: The October code corrections and this report were prepared with Codex assistance. The original project dates from November 2025.", "small"),
     ]
 
     def footer(canvas, doc):
@@ -134,7 +134,7 @@ def main():
         canvas.line(50, 39, A4[0] - 50, 39)
         canvas.setFont("Helvetica", 7.5)
         canvas.setFillColor(GRAY)
-        canvas.drawString(50, 27, "Portfolio allocation | Draft for review | 7 October 2026")
+        canvas.drawString(50, 27, "Portfolio allocation | Technical revision | 18 October 2026")
         canvas.drawRightString(A4[0] - 50, 27, str(doc.page))
         canvas.restoreState()
 
@@ -142,8 +142,7 @@ def main():
                            topMargin=42, bottomMargin=49,
                            title="Portfolio allocation with maximum-Sharpe optimization and HRP",
                            author="Spark Hu original project; assisted technical revision")
-    # Export the same wording and tables to Markdown, so author edits can be
-    # reviewed alongside the PDF rather than maintaining two divergent texts.
+    # Export matching wording and tables to Markdown from the same content.
     import re
     from html import unescape
     def plain(text):

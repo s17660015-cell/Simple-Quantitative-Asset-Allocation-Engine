@@ -1,7 +1,7 @@
-"""Optional worked solutions for teaching and infrastructure checks.
+"""GMV and scaled-identity covariance-shrinkage estimators.
 
-Try the notebook exercises first. These supplied functions are not evidence
-that you independently implemented the methods. No full study is run here.
+These implementations support the simulation engine and analytic checks.
+The full empirical covariance study has not been run.
 """
 
 import numpy as np

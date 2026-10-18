@@ -1,6 +1,6 @@
 """Corrected allocation and portfolio accounting for the original demonstration.
 
-Revision: 5 October 2026, prepared with Codex assistance for author review.
+Revision: 5 October 2026, prepared with Codex assistance.
 All return inputs are simple returns on a common observation calendar.
 """
 

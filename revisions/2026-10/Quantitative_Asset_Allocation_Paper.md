@@ -1,6 +1,6 @@
 # Portfolio allocation with maximum-Sharpe optimization and HRP
 
-Spark Hu | Original project: November 2025 | Revised draft: 7 October 2026
+Spark Hu | Original project: November 2025 | Documentation revised: 18 October 2026
 
 A rolling hierarchical risk parity (HRP) portfolio and an equal-weight portfolio are evaluated on the same five assets over 2021-2024. HRP had lower volatility and drawdown; equal weighting achieved higher growth and Sharpe. A separate maximum-Sharpe fit illustrates how estimated means and covariances determine an allocation.
 
@@ -74,7 +74,7 @@ These results come from a small selected universe over one historical period. Th
 
 Adjusted daily prices approximate total returns and execution values. They do not synchronize the exact timestamps of every market or fully model slippage, impact and taxes. The empirical VaR is a return quantile, not a bound on future losses. HRP's clustering also provides no explicit sector cap.
 
-The revision corrects mislabelled weights, return aggregation and holding-period accounting, then adds a signal delay, an equal-weight baseline and saved numerical checks. The earlier files and a detailed correction record remain in the archive. A covariance-shrinkage study is planned to separate numerical conditioning from estimation error; it is not included in these historical results.
+The revision corrects mislabelled weights, return aggregation and holding-period accounting, then adds a signal delay, an equal-weight baseline and saved numerical checks. The original files remain in the archive; CHANGES.md records the corrections. A covariance-shrinkage study is planned to separate numerical conditioning from estimation error; it is not included in these historical results.
 
 ## Reproducibility and sources
 
@@ -85,4 +85,4 @@ Prices were retrieved at 2026-10-05T08:58:25.056430+00:00. The local CSV's SHA-2
 [SciPy: SLSQP documentation.](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-slsqp.html)
 [yfinance: download and adjustment conventions.](https://ranaroussi.github.io/yfinance/reference/api/yfinance.download.html)
 
-Acknowledgment: The October code corrections and this draft were prepared with Codex assistance. The original project dates from November 2025. The author is reviewing the reasoning and wording before sharing the revised work.
+Acknowledgment: The October code corrections and this report were prepared with Codex assistance. The original project dates from November 2025.

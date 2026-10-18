@@ -1,9 +1,9 @@
 # Correction record
 
-This records a revision, rather than silently replacing the November report.
-The original eight files are preserved in `archive/2025-original`, and in the
-archive ZIP, with SHA-256 hashes. Corrected code and explanations were prepared
-with Codex assistance on 5 October 2026 for author review.
+This record describes the technical corrections to the November 2025 project.
+The original eight files are preserved at the repository root and in
+`archive/2025-original`, with SHA-256 hashes in the archive manifest.
+The corrections were prepared with Codex assistance on 5 October 2026.
 
 | Earlier issue | Correction | Why it matters |
 |---|---|---|

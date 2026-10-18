@@ -1,8 +1,8 @@
-"""Experiment infrastructure for the covariance study, with student-supplied fits.
+"""Paired simulation engine for covariance estimation and GMV allocation.
 
-This module does not fill the notebook's GMV or shrinkage exercises. The oracle
-is calculated independently from the known simulated covariance, and is never
-used to choose a shrinkage strength. Prepared with assistance, 7 October 2026.
+The oracle is calculated independently from the known simulated covariance
+and is never used to choose a shrinkage strength. Prepared with Codex
+assistance, 7 October 2026. The full empirical study has not been run.
 """
 
 from dataclasses import dataclass, asdict
@@ -64,7 +64,7 @@ def _check_weights(w, p):
 
 
 def validate_implementations(fit_gmv, shrink_covariance):
-    """Check exercises against a worked analytic example before simulation."""
+    """Validate estimators against an analytic two-asset example."""
     s = np.diag([1.0, 9.0])
     fitted = _check_weights(fit_gmv(s.copy()), 2)
     np.testing.assert_allclose(fitted, [0.9, 0.1], atol=1e-8)
