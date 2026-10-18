@@ -1,0 +1,11 @@
+.venv/
+.mpl-cache/
+.jupyter/
+.yf-cache/
+__pycache__/
+.ipynb_checkpoints/
+data/*.csv
+*.pyc
+.DS_Store
+.env
+REFEREE_PLAN.md

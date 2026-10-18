@@ -1,0 +1,34 @@
+{
+  "source": "Yahoo Finance via yfinance",
+  "retrieved_at_utc": "2026-10-05T08:58:25.056430+00:00",
+  "requested_start_inclusive": "2020-01-01",
+  "requested_end_exclusive": "2025-01-01",
+  "auto_adjust": true,
+  "repair": false,
+  "ignore_tz": true,
+  "yfinance_version": "1.7.0",
+  "tickers": [
+    "MSFT",
+    "JPM",
+    "TLT",
+    "GLD",
+    "BTC-USD",
+    "GOOG",
+    "XLE",
+    "SPY"
+  ],
+  "price_file": "data/adjusted-close.csv",
+  "sha256": "0c386ae03a56b097c63930a040b43a49b8851948887a742274e32325dbf5a105",
+  "combined_calendar_rows": 1827,
+  "observations_by_ticker": {
+    "MSFT": 1258,
+    "JPM": 1258,
+    "TLT": 1258,
+    "GLD": 1258,
+    "BTC-USD": 1827,
+    "GOOG": 1258,
+    "XLE": 1258,
+    "SPY": 1258
+  },
+  "note": "Fresh retrieval of historical data, not the unarchived 2025 download. Adjusted-price daily timestamps are an approximate common observation clock."
+}

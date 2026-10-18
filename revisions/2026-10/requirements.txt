@@ -1,0 +1,12 @@
+numpy
+pandas
+# PyPortfolioOpt 1.6.0 uses a private linkage registry removed in SciPy 1.18.
+scipy>=1.16,<1.18
+matplotlib
+PyPortfolioOpt==1.6.0
+yfinance
+nbformat
+nbclient
+ipykernel
+reportlab
+pypdf
