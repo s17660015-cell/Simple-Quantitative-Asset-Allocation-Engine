@@ -13,7 +13,6 @@ from reportlab.platypus import (
 ROOT = Path(__file__).resolve().parent
 RESULTS = ROOT / "results"
 PDF_PATH = ROOT / "Quantitative_Asset_Allocation_Paper.pdf"
-MD_PATH = ROOT / "Quantitative_Asset_Allocation_Paper.md"
 NAVY = colors.HexColor("#17324d")
 BLUE = colors.HexColor("#005b91")
 LIGHT = colors.HexColor("#edf3f7")
@@ -118,7 +117,7 @@ def main():
         p("Limits and corrections", "heading"),
         p("These results come from a small selected universe over one historical period. They have not been evaluated on an untouched holdout or subjected to a statistical superiority test. The cash rate is constant, and the 252-observation annualization does not account for serial dependence."),
         p("Adjusted daily prices approximate total returns and execution values. They do not synchronize the exact timestamps of every market or fully model slippage, impact and taxes. The empirical VaR is a return quantile, not a bound on future losses. HRP's clustering also provides no explicit sector cap."),
-        p("The revision corrects mislabelled weights, return aggregation and holding-period accounting, then adds a signal delay, an equal-weight baseline and saved numerical checks. The original files remain in the archive; CHANGES.md records the corrections. A covariance-shrinkage study is planned to separate numerical conditioning from estimation error; it is not included in these historical results."),
+        p("The revision corrects mislabelled weights, return aggregation and holding-period accounting, then adds a signal delay, an equal-weight baseline and saved numerical checks. The original files remain at the repository root; CHANGES.md records the corrections. A covariance-shrinkage study is planned to separate numerical conditioning from estimation error; it is not included in these historical results."),
         p("Reproducibility and sources", "heading"),
         p(f"Prices were retrieved at {escape(provenance['retrieved_at_utc'])}. The local CSV's SHA-256 is recorded in results/data-manifest.json. The source commit is ce87a9d13131d03699dd1b0834acd945c54bbb6d. Seed {summary['random_seed']}, run settings, dependency versions and numerical results are saved in results/summary.json; notebooks contain executed outputs.", "small"),
         p('<link href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2708678" color="#005b91">López de Prado (2016), Building Diversified Portfolios that Outperform Out-of-Sample.</link><br/>'
@@ -142,44 +141,8 @@ def main():
                            topMargin=42, bottomMargin=49,
                            title="Portfolio allocation with maximum-Sharpe optimization and HRP",
                            author="Spark Hu original project; assisted technical revision")
-    # Export matching wording and tables to Markdown from the same content.
-    import re
-    from html import unescape
-    def plain(text):
-        text = re.sub(r'<link href="([^"]+)"[^>]*>(.*?)</link>',
-                      lambda match: f'[{match[2]}]({match[1]})', text)
-        text = text.replace("<br/>", "\n").replace("<b>", "**").replace("</b>", "**")
-        return unescape(re.sub(r"<[^>]+>", "", text))
-
-    lines = []
-    for item in story:
-        if isinstance(item, Paragraph):
-            text = plain(item.text)
-            if item.style.name == "title":
-                text = ("# " if not lines else "## ") + text.replace("\n", " ")
-            elif item.style.name == "heading":
-                text = "## " + text
-            elif item.style.name == "formula":
-                text = "```text\n" + text + "\n```"
-            lines += [text, ""]
-        elif isinstance(item, Table):
-            values = [[plain(cell.text) if isinstance(cell, Paragraph) else str(cell)
-                       for cell in row] for row in item._cellvalues]
-            lines.append("| " + " | ".join(values[0]) + " |")
-            lines.append("| " + " | ".join(["---"] * len(values[0])) + " |")
-            lines += ["| " + " | ".join(row) + " |" for row in values[1:]]
-            lines.append("")
-        elif isinstance(item, KeepTogether):
-            for part in item._content:
-                if isinstance(part, Image):
-                    relative = Path(part.filename).relative_to(ROOT).as_posix()
-                    lines += [f"![Portfolio analysis figure]({relative})", ""]
-                elif isinstance(part, Paragraph):
-                    lines += [plain(part.text), ""]
-    MD_PATH.write_text("\n".join(lines))
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
     print("Created", PDF_PATH)
-    print("Created", MD_PATH)
 
 
 if __name__ == "__main__":

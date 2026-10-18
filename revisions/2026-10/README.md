@@ -47,7 +47,7 @@ drawdown in this sample, while equal weighting achieved higher growth and Sharpe
 
 | Artifact | Content |
 |---|---|
-| [Technical report](Quantitative_Asset_Allocation_Paper.pdf) and [Markdown source](Quantitative_Asset_Allocation_Paper.md) | Methods, historical results, cost sensitivity and limitations |
+| [Technical report](Quantitative_Asset_Allocation_Paper.pdf) | Methods, historical results, cost sensitivity and limitations |
 | [MVO notebook](MVO.ipynb) and [HRP notebook](HRP.ipynb) | Calculations and saved executed outputs |
 | [Mathematical note](COVARIANCE_DERIVATIONS.md) | GMV allocation, shrinkage, conditioning and allocation sensitivity |
 | [Correction record](CHANGES.md) | Technical differences from the original project |
@@ -55,7 +55,7 @@ drawdown in this sample, while equal weighting achieved higher growth and Sharpe
 | `covariance_lab.py`, `covariance_reference.py` | Covariance simulation engine and GMV/shrinkage estimators |
 | `fetch_data.py` | Adjusted-price retrieval and snapshot hash verification |
 | `tests/` | Allocation, timing, accounting and covariance checks |
-| `build_notebooks.py`, `execute_notebooks.py`, `build_report.py` | Notebook and report generation |
+| `execute_notebooks.py`, `build_report.py` | Notebook execution and PDF report generation |
 
 The covariance extension separates numerical conditioning from estimation error.
 It contains mathematical derivations, estimators and a simulation engine with
@@ -74,13 +74,16 @@ the unarchived original 2025 download.
 `run_analysis.py` verifies the local snapshot before analysis. Saved settings,
 the random seed, dependency versions and metrics are in
 [summary.json](results/summary.json). Python 3.12 was used for the revision;
-dependencies are recorded in `requirements.txt` and `requirements-lock.txt`.
+exact dependency versions are recorded in `requirements.txt`.
 
-Numerical outputs include [MVO weights](results/mvo-weights.csv),
-[walk-forward metrics](results/walk-forward-metrics.csv), daily returns at
+The summary contains the fitted MVO weights and all performance metrics.
+Separate numerical outputs retain daily returns at
 [zero costs](results/walk-forward-returns-0bps.csv) and
 [5 bps](results/walk-forward-returns-5bps.csv), and
 [HRP execution records](results/hrp-rebalances-0bps.csv).
+[HRP target weights](results/hrp-target-weights.csv) are shared by the two cost
+cases; costs affect realized returns, not fitted targets. The seeded allocation
+cloud is generated directly by `run_analysis.py`, without a separate draw table.
 The [release manifest](results/release-manifest.json) records artifact hashes.
 
 ## Limitations
@@ -100,9 +103,8 @@ risk superiority or future performance.
 
 ## Provenance and sources
 
-The original eight project files remain unchanged at the repository root and
-in `archive/2025-original`, whose manifest records file hashes. The source commit
-is `ce87a9d13131d03699dd1b0834acd945c54bbb6d`. The original report is dated
+The original eight project files remain unchanged at the repository root.
+The source commit is `ce87a9d13131d03699dd1b0834acd945c54bbb6d`. The original report is dated
 November 2025; the available GitHub snapshot was last committed in December 2025.
 This directory is a separate technical revision.
 
@@ -112,4 +114,4 @@ This directory is a separate technical revision.
 - [yfinance download documentation](https://ranaroussi.github.io/yfinance/reference/api/yfinance.download.html)
 
 Executed dependency versions are recorded in the results; online documentation
-may describe a different version. The original MIT license is retained.
+may describe a different version. The [MIT license](../../LICENSE) at the repository root applies to this revision.

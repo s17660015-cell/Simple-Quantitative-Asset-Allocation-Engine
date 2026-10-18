@@ -60,18 +60,12 @@ def portfolio_cloud(returns, weights, seed=SEED, draws=10000):
     fig.tight_layout()
     fig.savefig(RESULTS / "Portfolio_Optimization_Model.png", dpi=200)
     plt.close(fig)
-    table = pd.DataFrame(sampled, columns=returns.columns)
-    table["annual_mean"] = daily_mean * TRADING_DAYS
-    table["annual_volatility"] = daily_vol * np.sqrt(TRADING_DAYS)
-    table["annual_sharpe"] = sharpe
-    table.to_csv(RESULTS / "sampled-portfolios.csv", index=False)
 
 
 def run_mvo(raw):
     prices = prepare_prices(raw, MVO_TICKERS, start="2021-01-01", end="2025-01-01")
     returns = simple_returns(prices)
     weights, solver = max_sharpe_weights(returns)
-    weights.to_csv(RESULTS / "mvo-weights.csv", index_label="asset")
     proxy = fixed_weight_returns(returns, weights)
     proxy.rename("daily_rebalanced_in_sample").to_csv(RESULTS / "mvo-in-sample-returns.csv")
     portfolio_cloud(returns, weights)
@@ -101,8 +95,9 @@ def run_hrp(raw):
                               "SPY buy and hold": spy})
         assert not frame.isna().any().any()
         frame.to_csv(RESULTS / f"walk-forward-returns-{cost}bps.csv", index_label="Date")
-        hrp.target_weights.to_csv(RESULTS / f"hrp-target-weights-{cost}bps.csv",
-                                 index_label="execution_close")
+        if cost == 0:
+            hrp.target_weights.to_csv(RESULTS / "hrp-target-weights.csv",
+                                      index_label="execution_close")
         hrp.rebalances.to_csv(RESULTS / f"hrp-rebalances-{cost}bps.csv", index=False)
         equal.rebalances.to_csv(RESULTS / f"equal-weight-rebalances-{cost}bps.csv", index=False)
         for strategy in frame:
@@ -120,8 +115,6 @@ def run_hrp(raw):
             metrics.append(entry)
         cases[str(cost)] = frame
 
-    metrics_df = pd.DataFrame(metrics)
-    metrics_df.to_csv(RESULTS / "walk-forward-metrics.csv", index=False)
     base = cases["0"]
     wealth = (1 + base).cumprod()
     execution_date = pd.Timestamp(hrp.rebalances.iloc[0]["execution_close"])

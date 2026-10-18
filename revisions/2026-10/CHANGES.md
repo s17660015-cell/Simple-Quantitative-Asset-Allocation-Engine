@@ -2,7 +2,7 @@
 
 This record describes the technical corrections to the November 2025 project.
 The original eight files are preserved at the repository root and in
-`archive/2025-original`, with SHA-256 hashes in the archive manifest.
+source commit `ce87a9d13131d03699dd1b0834acd945c54bbb6d`.
 The corrections were prepared with Codex assistance on 5 October 2026.
 
 | Earlier issue | Correction | Why it matters |
